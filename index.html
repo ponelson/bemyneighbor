@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<!-- TITLE: must carry the version number. Pattern: "{Doc Title} v{N.N} — {subtitle}" -->
+<title>Blame the Neighbor v2.0 — a catalogue of ethnic misnaming</title>
+<meta name="description" content="Every disease, vice, habit and object that one people names after another — from the French pox to the Dutch auction." />
+<meta name="theme-color" content="#f5f5f7" id="themeColorMeta" />
+<meta name="color-scheme" content="light dark" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blame the Neighbor v2.0" />
+<meta property="og:description" content="Every disease, vice, habit and object that one people names after another — from the French pox to the Dutch auction." />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%230071e3'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700;8..60,900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   TOKENS — the ONLY place literal colors are allowed in this file.
+   Every rule below this block references var(--…). No exceptions.
+   Light and dark are declared as matched pairs so nothing can go
+   white-on-white or black-on-black when the theme flips.
+   ========================================================================= */
+:root{
+  color-scheme:light;
+  /* page + surfaces */
+  --bg:#f5f5f7;
+  --bg-grad-1:rgba(234,243,255,.85);
+  --bg-grad-2:rgba(255,240,223,.75);
+  --bg-grad-3:#fbfbfd;
+  --bg-grad-4:#eff2f6;
+  --surface:#ffffff;
+  --surface-2:#f0f0f3;
+  --surface-3:#f1f3f5;
+  --glass:rgba(255,255,255,.72);
+  --glass-2:rgba(255,255,255,.60);
+  --glass-border:rgba(255,255,255,.72);
+  --nav-bg:rgba(245,245,247,.90);
+  /* text */
+  --ink:#111114;
+  --ink-2:#3a3f4c;
+  --ink-3:#4a505c;
+  --ink-dim:#6b6f7b;
+  --ink-strong:#000000;
+  /* lines */
+  --line:rgba(0,0,0,.09);
+  --line-2:rgba(0,0,0,.16);
+  --line-solid:#e3e3e8;
+  --line-strong:#d2d2d7;
+  /* accents */
+  --blue:#0071e3;      --blue-ink:#0057b8;    --blue-soft:#e9f3ff;
+  --green:#1f8f4e;     --green-ink:#0f6a36;   --green-soft:#e9f7ee;
+  --orange:#b65f00;    --orange-ink:#8a4800;  --orange-soft:#fff1df;
+  --purple:#6b47d6;    --purple-ink:#4d32a3;  --purple-soft:#f0edff;
+  --red:#bd2b28;       --red-ink:#a52320;     --red-soft:#fdeceb;
+  --on-accent:#ffffff;
+  /* inverted panel — the deliberately high-contrast block.
+     Dark in light mode; a LIFTED panel in dark mode so it never vanishes. */
+  --invert-bg:#141417;
+  --invert-ink:#f5f5f7;
+  --invert-ink-2:#c9ccd3;
+  --invert-line:#2a2a30;
+  /* code */
+  --code-bg:#141417;   --code-ink:#e6e8ee;    --code-line:#2a2a30;
+  --code-c:#7f8798; --code-k:#6fb2ff; --code-g:#63d193; --code-r:#ff7b72; --code-y:#ffc46b;
+  --code-light-bg:#f1f2f4; --code-light-ink:#1c1f26;
+  /* callouts */
+  --note-bg:rgba(0,113,227,.05);   --note-line:rgba(0,113,227,.20);
+  --warn-bg:#fff7e8;               --warn-line:#f2d6a7;  --warn-ink:#5c3b00;
+  /* chrome */
+  --strip-bg:#111114;  --strip-ink:#ffffff;
+  --strip-btn:rgba(255,255,255,.10); --strip-btn-hover:rgba(255,255,255,.20);
+  --strip-line:rgba(255,255,255,.20);
+  --pill-bg:rgba(255,255,255,.68);  --pill-ink:#252934;
+  --pill-on-bg:#111114;             --pill-on-ink:#ffffff;
+  --shadow:0 18px 60px rgba(0,0,0,.10);
+  --shadow-2:0 8px 28px rgba(0,0,0,.08);
+  --shadow-hover:0 16px 50px rgba(0,0,0,.11);
+  --orb-opacity:.72;
+  --gradtext:linear-gradient(102deg,#17191d 0%,#465365 48%,#0874dc 86%,#0068c9 100%);
+  --gradtext-fallback:#34475f;
+  /* type + geometry */
+  --serif:'Source Serif 4', ui-serif, Georgia, serif;
+  --sans:'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', Segoe UI, sans-serif;
+  --mono:'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --radius:28px; --radius-2:18px;
+}
+
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0d0d10;
+  --bg-grad-1:rgba(23,42,71,.55);
+  --bg-grad-2:rgba(58,40,20,.45);
+  --bg-grad-3:#101015;
+  --bg-grad-4:#0a0a0d;
+  --surface:#17171c;
+  --surface-2:#1d1d23;
+  --surface-3:#22222a;
+  --glass:rgba(30,30,37,.72);
+  --glass-2:rgba(30,30,37,.60);
+  --glass-border:rgba(255,255,255,.10);
+  --nav-bg:rgba(16,16,20,.90);
+  --ink:#f2f2f5;
+  --ink-2:#c3c7d1;
+  --ink-3:#adb2bd;
+  --ink-dim:#9096a3;
+  --ink-strong:#ffffff;
+  --line:rgba(255,255,255,.12);
+  --line-2:rgba(255,255,255,.20);
+  --line-solid:#2b2b33;
+  --line-strong:#3a3a44;
+  --blue:#4da3ff;      --blue-ink:#8cc3ff;    --blue-soft:rgba(77,163,255,.16);
+  --green:#4bc47d;     --green-ink:#7fd9a2;   --green-soft:rgba(75,196,125,.16);
+  --orange:#f0a23c;    --orange-ink:#f5bd72;  --orange-soft:rgba(240,162,60,.16);
+  --purple:#a78bfa;    --purple-ink:#c4b1ff;  --purple-soft:rgba(167,139,250,.18);
+  --red:#f0736e;       --red-ink:#f79b97;     --red-soft:rgba(240,115,110,.16);
+  --on-accent:#0d0d10;
+  --invert-bg:#22222b;
+  --invert-ink:#f5f5f7;
+  --invert-ink-2:#c9ccd3;
+  --invert-line:#3d3d49;
+  --code-bg:#101014;   --code-ink:#e6e8ee;    --code-line:#2f2f3a;
+  --code-light-bg:#1b1b21; --code-light-ink:#dfe2e9;
+  --note-bg:rgba(77,163,255,.10);  --note-line:rgba(77,163,255,.30);
+  --warn-bg:rgba(240,162,60,.12);  --warn-line:rgba(240,162,60,.34); --warn-ink:#f3cd95;
+  --strip-bg:#000000;  --strip-ink:#f2f2f5;
+  --strip-btn:rgba(255,255,255,.10); --strip-btn-hover:rgba(255,255,255,.22);
+  --strip-line:rgba(255,255,255,.22);
+  --pill-bg:rgba(255,255,255,.07);  --pill-ink:#dcdfe7;
+  --pill-on-bg:#f2f2f5;             --pill-on-ink:#0d0d10;
+  --shadow:0 18px 60px rgba(0,0,0,.55);
+  --shadow-2:0 8px 28px rgba(0,0,0,.45);
+  --shadow-hover:0 16px 50px rgba(0,0,0,.60);
+  --orb-opacity:.30;
+  --gradtext:linear-gradient(102deg,#ffffff 0%,#cdd8e8 48%,#6fb2ff 86%,#4da3ff 100%);
+  --gradtext-fallback:#cfe0f5;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* ============================ base ============================ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 15% 0%, var(--bg-grad-1) 0, transparent 38%),
+    radial-gradient(circle at 80% 8%, var(--bg-grad-2) 0, transparent 32%),
+    linear-gradient(180deg, var(--bg-grad-3) 0, var(--bg) 45%, var(--bg-grad-4) 100%);
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:var(--sans);
+  line-height:1.45;
+  transition:background-color .2s ease, color .2s ease;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1460px;margin:0 auto;padding:0 26px}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+.vlabel{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--mono)}
+
+/* ============================ topbar ============================ */
+.topbar{position:sticky;top:0;z-index:60}
+.contact-strip{background:var(--strip-bg);color:var(--strip-ink);border-bottom:1px solid var(--strip-line)}
+.contact-strip-inner{max-width:1460px;margin:0 auto;padding:8px 26px;display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.contact-link{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;border:1px solid var(--strip-line);background:var(--strip-btn);color:var(--strip-ink);font-size:12px;font-weight:700;letter-spacing:-.01em;transition:background .16s,transform .16s}
+.contact-link:hover{background:var(--strip-btn-hover);transform:translateY(-1px)}
+.contact-link svg{width:14px;height:14px;fill:currentColor;flex:0 0 auto}
+.themetoggle{display:inline-flex;align-items:center;gap:7px;margin-left:6px;padding:7px 11px;border-radius:999px;border:1px solid var(--strip-line);background:var(--strip-btn);color:var(--strip-ink);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:background .16s,transform .16s}
+.themetoggle:hover{background:var(--strip-btn-hover);transform:translateY(-1px)}
+.themetoggle svg{width:14px;height:14px;fill:currentColor;flex:0 0 auto}
+html[data-theme="light"] .themetoggle .i-moon{display:block}
+html[data-theme="light"] .themetoggle .i-sun{display:none}
+html[data-theme="dark"]  .themetoggle .i-moon{display:none}
+html[data-theme="dark"]  .themetoggle .i-sun{display:block}
+
+.nav{background:var(--nav-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1460px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:13px 26px}
+.brand{font-weight:800;letter-spacing:-.03em;white-space:nowrap;color:var(--ink)}
+.brand span{font-family:var(--serif);font-weight:900}
+.brand .vtag{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink-dim);letter-spacing:.02em;margin-left:6px}
+.navlinks{display:flex;gap:6px;margin-left:auto;flex-wrap:nowrap;overflow-x:auto;min-width:0;padding-bottom:2px;scrollbar-width:thin}
+.navlinks a{flex:0 0 auto;white-space:nowrap;border:1px solid var(--line);background:var(--pill-bg);color:var(--pill-ink);padding:8px 12px;border-radius:999px;font-size:13px;cursor:pointer}
+.navlinks a.active{background:var(--pill-on-bg);color:var(--pill-on-ink);border-color:var(--pill-on-bg)}
+.menubtn{display:none;margin-left:auto;border:1px solid var(--line);background:var(--pill-bg);border-radius:12px;width:40px;height:36px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px}
+.menubtn i{display:block;width:16px;height:1.6px;background:var(--ink);border-radius:2px}
+.drawer{display:none;border-top:1px solid var(--line);background:var(--nav-bg);backdrop-filter:blur(18px);padding:12px 16px 16px}
+.drawer.open{display:block}
+.drawer a{display:block;padding:11px 4px;border-bottom:1px solid var(--line);font-size:15px;font-weight:600;color:var(--ink)}
+
+/* ============================ hero ============================ */
+.hero{min-height:78vh;display:flex;align-items:center;position:relative;isolation:isolate;overflow:hidden;padding:46px 0 26px}
+.orb{position:absolute;border-radius:50%;pointer-events:none;z-index:-1;opacity:var(--orb-opacity);filter:blur(22px)}
+.orb.a{width:540px;height:540px;background:radial-gradient(circle at 36% 34%,var(--blue) 0 14%,transparent 72%);right:-155px;top:-118px}
+.orb.b{width:370px;height:370px;background:radial-gradient(circle at 58% 44%,var(--orange) 0 14%,transparent 72%);left:-142px;bottom:54px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:16px}
+.eyebrow b{color:var(--ink-2)}
+.h1{font-family:var(--serif);font-size:clamp(48px,7vw,104px);line-height:.92;letter-spacing:-.06em;margin:0 0 24px;color:var(--ink)}
+.h1 em{font-style:normal;background:var(--gradtext);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--gradtext-fallback)}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.h1 em{background:none;-webkit-text-fill-color:currentColor;color:var(--gradtext-fallback)}}
+.lede{font-size:clamp(18px,2.1vw,25px);line-height:1.34;color:var(--ink-2);max-width:840px;margin:0 0 26px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.cta{background:var(--pill-on-bg);color:var(--pill-on-ink);border:1px solid var(--pill-on-bg);border-radius:999px;padding:13px 17px;font-weight:700;display:inline-flex;gap:9px;align-items:center;font-size:14.5px;cursor:pointer;font-family:var(--sans)}
+.cta.secondary{background:var(--glass);color:var(--ink);border:1px solid var(--line-2)}
+
+/* ============================ sections ============================ */
+.section{padding:70px 0;scroll-margin-top:124px}
+.section h2{font-family:var(--serif);font-size:clamp(36px,4.4vw,64px);line-height:.96;letter-spacing:-.05em;margin:0 0 14px;color:var(--ink)}
+.section h3.sub-h{font-family:var(--serif);font-size:28px;letter-spacing:-.04em;margin:40px 0 8px;font-weight:700;color:var(--ink)}
+.section .sub{font-size:18.5px;color:var(--ink-3);max-width:940px;margin:0 0 28px;line-height:1.5}
+.section p{color:var(--ink-3)}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.rule{height:1px;background:var(--line);margin:0;border:0}
+
+/* ============================ components ============================ */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+
+.card{background:var(--glass);border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow-2);transition:transform .18s ease,box-shadow .18s ease;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.card h3{margin:0 0 9px;font-size:19px;letter-spacing:-.035em;line-height:1.15;color:var(--ink)}
+.card p{margin:0;color:var(--ink-3);font-size:14px}
+.card ul{margin:10px 0 0;padding-left:17px;color:var(--ink-3);font-size:13.5px}
+.card li{margin:0 0 6px}
+
+.panel{background:var(--glass);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-2);padding:22px}
+.panel h3{margin:0 0 6px;font-size:21px;letter-spacing:-.035em;color:var(--ink)}
+.panel p,.panel li{color:var(--ink-3);font-size:14.5px}
+.panel ul,.panel ol{margin:12px 0 0;padding-left:18px}
+
+/* inverted panel: high-contrast in BOTH themes */
+.panel.invert,.plainbox{background:var(--invert-bg);border:1px solid var(--invert-line);color:var(--invert-ink);border-radius:24px;padding:26px 28px;box-shadow:var(--shadow)}
+.panel.invert h3,.plainbox h3{color:var(--invert-ink);font-family:var(--serif);font-size:24px;letter-spacing:-.035em;margin:0 0 10px}
+.panel.invert p,.panel.invert li,.plainbox p{color:var(--invert-ink-2);font-size:15.5px;line-height:1.6}
+
+.stat{padding:18px;background:var(--glass);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-2)}
+.stat .n{font-family:var(--serif);font-size:40px;font-weight:900;letter-spacing:-.05em;line-height:.9;color:var(--ink)}
+.stat .t{font-size:12.5px;color:var(--ink-dim);margin-top:8px;line-height:1.4}
+
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px}
+.tag{font-family:var(--mono);font-size:11px;color:var(--ink-2);background:var(--surface-3);border:1px solid var(--line);border-radius:999px;padding:5px 8px;display:inline-block}
+.tag.blue{background:var(--blue-soft);color:var(--blue-ink);border-color:var(--blue-soft)}
+.tag.green{background:var(--green-soft);color:var(--green-ink);border-color:var(--green-soft)}
+.tag.orange{background:var(--orange-soft);color:var(--orange-ink);border-color:var(--orange-soft)}
+.tag.purple{background:var(--purple-soft);color:var(--purple-ink);border-color:var(--purple-soft)}
+.tag.red{background:var(--red-soft);color:var(--red-ink);border-color:var(--red-soft)}
+
+.fieldnote{font-size:13.5px;line-height:1.6;color:var(--ink-3);background:var(--note-bg);border:1px solid var(--note-line);border-left:3px solid var(--blue);border-radius:14px;padding:14px 18px;margin:24px 0;max-width:90ch}
+.fieldnote b{color:var(--blue)}
+.warning{background:var(--warn-bg);border:1px solid var(--warn-line);border-left:3px solid var(--orange);border-radius:14px;padding:14px 18px;color:var(--warn-ink);margin:22px 0;font-size:13.5px;max-width:90ch}
+.warning b{color:var(--orange-ink)}
+
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:8px 14px;border-radius:100px;border:1px solid var(--line-strong);background:var(--pill-bg);color:var(--ink-3);cursor:pointer;transition:.15s}
+.chip:hover{border-color:var(--ink-dim);color:var(--ink)}
+.chip.active{background:var(--blue);border-color:var(--blue);color:var(--on-accent)}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+
+.tablewrap{background:var(--glass);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-2);overflow:hidden}
+.table-scroll{overflow:auto}
+table{border-collapse:collapse;width:100%}
+th{position:sticky;top:0;background:var(--surface);z-index:2;text-align:left;font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);padding:14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{vertical-align:top;padding:14px;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink-3)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:700;color:var(--ink)}
+
+pre.term{font-family:var(--mono);font-size:12px;line-height:1.62;background:var(--code-bg);color:var(--code-ink);border:1px solid var(--code-line);border-radius:16px;padding:16px 18px;overflow:auto;margin:14px 0 0;white-space:pre}
+pre.term .c{color:var(--code-c)} pre.term .k{color:var(--code-k)}
+pre.term .g{color:var(--code-g)} pre.term .r{color:var(--code-r)} pre.term .y{color:var(--code-y)}
+pre.light{font-family:var(--mono);font-size:12px;line-height:1.6;background:var(--code-light-bg);color:var(--code-light-ink);border:1px solid var(--line);border-radius:14px;padding:14px 16px;overflow:auto;margin:12px 0 0;white-space:pre}
+
+/* accordion */
+.fam{background:var(--surface);border:1px solid var(--line-solid);border-radius:18px;overflow:hidden;margin-bottom:10px;transition:border-color .18s}
+.fam.open{border-color:var(--line-strong);box-shadow:var(--shadow-2)}
+.fam-head{display:grid;grid-template-columns:46px 1fr auto;gap:16px;align-items:center;padding:20px 22px;cursor:pointer;width:100%;text-align:left;background:none;border:none;color:var(--ink);font:inherit}
+.fam-dot{width:40px;height:40px;border-radius:9px;display:grid;place-items:center;font-family:var(--serif);font-size:19px;color:var(--on-accent);background:var(--blue);font-weight:700}
+.fam-title{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.fam-sub{font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:3px}
+.fam-toggle{font-family:var(--mono);font-size:20px;color:var(--ink-dim);transition:transform .2s}
+.fam.open .fam-toggle{transform:rotate(45deg)}
+.fam-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease;border-top:1px solid transparent}
+.fam.open .fam-body{grid-template-rows:1fr;border-top-color:var(--line-solid)}
+.fam-body>div{overflow:hidden}
+.fam-inner{padding:18px 22px 22px;color:var(--ink-3);font-size:14.5px;line-height:1.6}
+
+/* ============================ footer ============================ */
+.footer{padding:34px 0 60px;color:var(--ink-dim);font-size:13px;border-top:1px solid var(--line);margin-top:40px}
+.footer a{color:var(--blue)}
+.verstamp{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);line-height:1.6}
+
+@media(max-width:960px){
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .navlinks{display:none}
+  .menubtn{display:flex}
+  .contact-strip-inner{padding:7px 14px;justify-content:center;gap:6px}
+  .contact-link,.themetoggle{flex:1;justify-content:center;max-width:130px;padding:7px 8px;font-size:11px}
+  .hero{min-height:auto;padding:36px 0}
+  .section{padding:48px 0}
+}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+.topbar{top:env(safe-area-inset-top,0px)}
+.search{width:100%;max-width:640px;font:inherit;font-size:15px;padding:12px 16px;border-radius:14px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);margin:0 0 16px}
+.search::placeholder{color:var(--ink-dim)}
+.count{font-family:var(--mono);font-size:12px;color:var(--ink-dim);margin:0 0 12px}
+.ring{margin-top:8px}
+.gloss{display:block;font-weight:400;font-style:italic;color:var(--ink-dim);font-size:12.5px;margin-top:3px}
+td .tag{margin-left:6px;vertical-align:middle}
+td.catcell{font-family:var(--mono);font-size:11px;color:var(--ink-dim);white-space:nowrap}
+.bars{display:grid;gap:8px;max-width:760px}
+.bar{display:grid;grid-template-columns:150px 1fr 34px;gap:12px;align-items:center;font-size:13.5px;color:var(--ink-2)}
+.bar .track{height:12px;background:var(--surface-3);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar .fill{height:100%;background:var(--blue);border-radius:999px}
+.bar .num{font-family:var(--mono);font-size:12px;color:var(--ink-dim);text-align:right}
+.breath{list-style:none;counter-reset:b;margin:0;padding:0;display:grid;gap:14px;max-width:1000px}
+.breath li{counter-increment:b;position:relative;background:var(--glass);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow-2);padding:20px 24px 20px 70px}
+.breath li::before{content:counter(b);position:absolute;left:22px;top:20px;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--blue);color:var(--on-accent);font-family:var(--serif);font-weight:700;font-size:16px}
+.breath li p{margin:0;font-family:var(--serif);font-size:19px;line-height:1.55;color:var(--ink-2)}
+.breath li b{color:var(--ink)}
+@media(max-width:960px){.breath li{padding:18px 18px 18px 60px}.breath li p{font-size:17px}}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOPBAR: contact + theme toggle ===================== -->
+<div class="topbar">
+  <div class="contact-strip">
+    <div class="contact-strip-inner">
+      <a class="contact-link" href="mailto:ponelson@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg>
+        <span>Email</span>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/ponelson/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5H3.56V19h3.38V8.5ZM5.25 3A1.96 1.96 0 1 0 5.25 6.92 1.96 1.96 0 0 0 5.25 3ZM20.44 13.08c0-3.16-1.68-4.63-3.93-4.63-1.81 0-2.62.99-3.08 1.69V8.5h-3.38V19h3.38v-5.2c0-1.37.26-2.7 1.96-2.7 1.68 0 1.7 1.57 1.7 2.79V19h3.38l-.03-5.92Z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a class="contact-link" href="https://ponelson.github.io/pon/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.9 5.34.9 11.6c0 4.9 3.17 9.06 7.57 10.53.55.1.75-.24.75-.53v-1.86c-3.08.67-3.73-1.49-3.73-1.49-.5-1.29-1.23-1.63-1.23-1.63-1.01-.69.08-.67.08-.67 1.11.08 1.7 1.15 1.7 1.15.99 1.7 2.6 1.21 3.23.93.1-.72.39-1.21.7-1.49-2.46-.28-5.05-1.23-5.05-5.49 0-1.21.43-2.2 1.14-2.98-.11-.28-.5-1.41.11-2.94 0 0 .93-.3 3.05 1.14.88-.25 1.83-.37 2.77-.37.94 0 1.89.13 2.78.37 2.11-1.44 3.04-1.14 3.04-1.14.61 1.53.22 2.66.11 2.94.71.78 1.14 1.77 1.14 2.98 0 4.27-2.6 5.21-5.07 5.48.4.35.76 1.03.76 2.08v3.08c0 .3.2.64.76.53 4.39-1.47 7.56-5.63 7.56-10.53C23.1 5.34 18.27.5 12 .5Z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <button class="themetoggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Toggle light or dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-13.5a1 1 0 0 1 1 1V6a1 1 0 1 1-2 0V4.5a1 1 0 0 1 1-1Zm0 15a1 1 0 0 1 1 1V21a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1ZM3.5 12a1 1 0 0 1 1-1H6a1 1 0 1 1 0 2H4.5a1 1 0 0 1-1-1Zm14.5 0a1 1 0 0 1 1-1h1.5a1 1 0 1 1 0 2H19a1 1 0 0 1-1-1ZM5.6 5.6a1 1 0 0 1 1.4 0l1.1 1.1a1 1 0 0 1-1.4 1.4L5.6 7a1 1 0 0 1 0-1.4Zm10.3 10.3a1 1 0 0 1 1.4 0l1.1 1.1a1 1 0 0 1-1.4 1.4l-1.1-1.1a1 1 0 0 1 0-1.4Zm2.5-10.3a1 1 0 0 1 0 1.4L17.3 8.1a1 1 0 1 1-1.4-1.4L17 5.6a1 1 0 0 1 1.4 0ZM8.1 15.9a1 1 0 0 1 0 1.4L7 18.4A1 1 0 0 1 5.6 17l1.1-1.1a1 1 0 0 1 1.4 0Z"/></svg>
+        <span id="themeLabel">Dark</span>
+      </button>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">Blame the Neighbor<span class="vtag">v2.0</span></div>
+      <div class="navlinks" id="navlinks"></div>
+      <button class="menubtn" id="menubtn" type="button" aria-label="Menu"><i></i><i></i><i></i></button>
+    </div>
+    <div class="drawer" id="drawer"></div>
+  </nav>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="orb a"></div><div class="orb b"></div>
+  <div class="wrap">
+    <!-- HEADER VERSION STAMP — required -->
+    <div class="eyebrow">Reference &nbsp;/&nbsp; <b>v2.0</b> &nbsp;&middot;&nbsp; 21 September 2026, 7:43 AM ET &nbsp;&middot;&nbsp; <span class="mono">build 2026-09-21T07:43-04:00</span></div>
+    <h1 class="h1">Every people names its troubles <em>after someone else</em></h1>
+    <p class="lede">Syphilis was French to the English, Italian to the French, Spanish to the Dutch and Christian to the Ottomans. This is the full pattern: diseases, vermin, manners, vice, incomprehension, and the milder branch where a turkey is Indian and a Danish is Viennese.</p>
+  </div>
+</header>
+
+<main>
+  <section class="section" id="breath" data-nav="In one breath">
+    <div class="wrap">
+      <div class="kicker">Ten sentences</div>
+      <h2>In one breath</h2>
+      <p class="sub">The whole pattern, one thing at a time, in the long form of the syphilis sentence. Each sentence draws only on entries from the tables below.</p>
+      <ol class="breath">
+        <li><p><b>Syphilis</b>, commonly known to the English as the French disease, though also known to the French as the Neapolitan disease, and to the Italians mostly as the French disease and sometimes as the Spanish, and to the Dutch as the Spanish pox, and to the Portuguese as the Castilian disease, and to the Russians as the Polish disease, and to the Poles as the German disease, and to the Japanese as the Chinese sore or the Portuguese disease, and to the Persians as the Turkish disease, and to the Turks as the Frankish disease, and to the Indians as the disease of the Franks, and to the Ottomans and Arabs as the Christian disease.</p></li>
+        <li><p><b>The 1918 influenza</b>, commonly known to the world as the Spanish flu, though known to the Spanish as the French flu or the Naples soldier, and to the Senegalese as the Brazilian flu, and to the Brazilians as the German flu, and to the Poles as the Bolshevik disease, and to German soldiers as Flanders fever.</p></li>
+        <li><p><b>Leaving a party without saying goodbye</b>, known to the English as taking French leave and to Americans as the Irish goodbye, though known to the French as slipping off English-style, and to the Italians, Poles, Russians, Czechs, Hungarians and Romanians as leaving the English way, and to the Spanish, Portuguese and Germans as leaving the French way, and to the Austrians as the Polish exit.</p></li>
+        <li><p><b>Incomprehensible talk</b>, known to the English, Portuguese and Swedes as Greek, though known to the Greeks, French, Dutch, Spanish, Poles, Russians, Hungarians, Romanians, Estonians, Latvians and Israelis as Chinese, and to the Italians as Arabic, and to the Finns as Hebrew, and to the Germans as Bohemian villages, and to the Czechs and Slovaks as Spanish villages, and to the Turks as a thing that leaves you French, and to the Chinese as heavenly script or ghost scribbles.</p></li>
+        <li><p><b>The turkey</b>, an American bird known to the English as the bird of Turkey, though known to the Turks, French, Russians, Poles and Israelis as the bird of India, and to the Dutch, Danes and Swedes as the bird of Calicut, and to the Portuguese as the bird of Peru, and to the Egyptians as the Roman rooster, and to the Levantines as the Abyssinian rooster, and to the Greeks as the French girl, and to the Scots Gaels as the French hen, and to the Cambodians as the French chicken, and to the Malays as the Dutch chicken.</p></li>
+        <li><p><b>The cockroach</b>, known to the English as the German cockroach, though known to the Germans as the Swabian, and to the Russians and Poles as the Prussian, and to the Czechs and some Germans as the Russian.</p></li>
+        <li><p><b>The condom</b>, known to the English as the French letter, though known to the French as the English cape, and to the Germans as the Parisian.</p></li>
+        <li><p><b>Splitting the bill</b>, known to the English as going Dutch, and to the Koreans and Japanese by the borrowed “Dutch pay,” though known to the Italians as paying Roman-style, and to Spanish speakers as paying American-style, and to the Turks as the German method.</p></li>
+        <li><p><b>Sodomy</b>, known to the English and French of the Renaissance as the Italian vice, though known to the Germans of the same era as Florencing, and to the English, through the word bugger, as a Bulgarian habit, and to the French of 1900 as the German vice, and to newspaper classifieds as Greek.</p></li>
+        <li><p><b>The Danish pastry</b>, known to the English as Danish, though known to the Danes as Viennese bread, and to the Viennese as the Copenhagener.</p></li>
+      </ol>
+      <p style="max-width:78ch">Sentences 2 and 6 include usages tagged <b>reported</b> in the tables (the Senegalese, Brazilian, Polish and German-army flu names; the German-dialect “Russians” for cockroaches).</p>
+    </div>
+  </section>
+  <section class="section" id="pattern" data-nav="Pattern">
+    <div class="wrap">
+      <div class="kicker">The pattern</div>
+      <h2>Three moves, one reflex</h2>
+      <p class="sub">When something unwelcome arrives — a disease, a pest, a bad habit, a sound you can’t parse — the name usually records who the speaker already distrusted, not where the thing came from.</p>
+      <div class="grid g3">
+        <div class="card"><div class="meta"><span class="tag red">Contagion</span></div><h3>It came from over there</h3><p>Syphilis, the 1918 flu, cholera, cockroaches, rats. The name tracks the war or the trade route of the moment, which is why the same disease gets a different villain in every language.</p></div>
+        <div class="card"><div class="meta"><span class="tag orange">Manners</span></div><h3>They behave like that</h3><p>Leaving without goodbye, splitting the bill, drinking for courage, paying for sex. Rudeness and vice are exported to the rival next door.</p></div>
+        <div class="card"><div class="meta"><span class="tag purple">Incomprehension</span></div><h3>They talk like that</h3><p>“It’s Greek to me” and its cousins form a directed chain that mostly ends at Chinese. Older still: whole peoples named as babblers or mutes.</p></div>
+      </div>
+      <p style="max-width:78ch;margin-top:28px">Your second example belongs to a fourth, milder branch: names that record the last port a thing passed through. The turkey is the canonical case — an American bird that English credits to Turkey, Turkish credits to India, and Portuguese credits to Peru. There is no grievance in most of these, only a garbled supply chain. The last section covers the modern counter-movement, in which the World Health Organization now bans place names in new disease names.</p>
+      <div class="grid g4" id="stats" style="margin-top:26px"></div>
+      <h3 class="sub-h">Most-blamed</h3>
+      <p style="max-width:78ch">Counted across every entry below; an entry blaming two places counts for each.</p>
+      <div class="bars" id="bars"></div>
+    </div>
+  </section>
+
+  <section class="section" id="pox" data-nav="Pox">
+    <div class="wrap">
+      <div class="kicker">Contagion</div>
+      <h2>The Great Pox</h2>
+      <p class="sub">Syphilis reached Europe in 1494–95 and within a decade nearly every people had named it after an enemy or a trading partner. The names map the politics of 1500 more accurately than the epidemiology.</p>
+      <div class="ring" data-cat="pox"></div>
+    </div>
+  </section>
+
+  <section class="section" id="flu" data-nav="1918 flu">
+    <div class="wrap">
+      <div class="kicker">Contagion</div>
+      <h2>The 1918 influenza</h2>
+      <p class="sub">Spain took the blame because, as a wartime neutral, its newspapers were free to report the outbreak. Inside Spain, the flu was French — or a song.</p>
+      <div class="ring" data-cat="flu"></div>
+    </div>
+  </section>
+
+  <section class="section" id="disease" data-nav="Diseases">
+    <div class="wrap">
+      <div class="kicker">Contagion</div>
+      <h2>Other diseases</h2>
+      <p class="sub">Some are pure blame, some are honest geography that hardened into stigma, and a few (the English sweat, the English malady) were applied by the English to themselves.</p>
+      <div class="ring" data-cat="disease"></div>
+    </div>
+  </section>
+
+  <section class="section" id="pests" data-nav="Vermin">
+    <div class="wrap">
+      <div class="kicker">Contagion</div>
+      <h2>Vermin</h2>
+      <p class="sub">The cockroach is always from the next province over.</p>
+      <div class="ring" data-cat="pests"></div>
+    </div>
+  </section>
+
+  <section class="section" id="exit" data-nav="French leave">
+    <div class="wrap">
+      <div class="kicker">Manners</div>
+      <h2>Leaving without a word</h2>
+      <p class="sub">Europe splits almost cleanly: English says French, and most of the Continent says English. German hedges with France and Poland.</p>
+      <div class="ring" data-cat="exit"></div>
+    </div>
+  </section>
+
+  <section class="section" id="greek" data-nav="Greek to me">
+    <div class="wrap">
+      <div class="kicker">Incomprehension</div>
+      <h2>It’s Greek to me</h2>
+      <p class="sub">Charted as a graph, most arrows converge on Chinese; Chinese points to heaven and ghosts.</p>
+      <div class="ring" data-cat="greek"></div>
+    </div>
+  </section>
+
+  <section class="section" id="dutch" data-nav="Dutch">
+    <div class="wrap">
+      <div class="kicker">Manners</div>
+      <h2>Anglo-Dutch, and who pays the bill</h2>
+      <p class="sub">Most of the English “Dutch” idioms date to the commercial wars of the seventeenth century, when “Dutch” became shorthand for cheap, drunk, or fake. Other languages assign the split bill to someone else.</p>
+      <div class="ring" data-cat="dutch"></div>
+    </div>
+  </section>
+
+  <section class="section" id="vice" data-nav="Vice">
+    <div class="wrap">
+      <div class="kicker">Manners</div>
+      <h2>Sex and vice</h2>
+      <p class="sub">Sexual practices, contraception and even menstruation get the same foreign attribution as disease. The condom is the cleanest case: French to the English, English to the French.</p>
+      <div class="ring" data-cat="vice"></div>
+    </div>
+  </section>
+
+  <section class="section" id="idioms" data-nav="Idioms">
+    <div class="wrap">
+      <div class="kicker">Manners</div>
+      <h2>Idioms of blame</h2>
+      <p class="sub">Treachery, cheating, chaos, freeloading, playing dumb: each language keeps a neighbor on file for each failing.</p>
+      <div class="ring" data-cat="idioms"></div>
+    </div>
+  </section>
+
+  <section class="section" id="outsiders" data-nav="Outsiders">
+    <div class="wrap">
+      <div class="kicker">Incomprehension</div>
+      <h2>Names for outsiders</h2>
+      <p class="sub">Before blaming a neighbor for a thing, languages often name the neighbor as the one who can’t speak properly.</p>
+      <div class="ring" data-cat="outsiders"></div>
+    </div>
+  </section>
+
+  <section class="section" id="misnomer" data-nav="Misnomers">
+    <div class="wrap">
+      <div class="kicker">The innocuous branch</div>
+      <h2>Innocent misnomers</h2>
+      <p class="sub">Your Dutch-auction example belongs here: names that record a trade route or a guess, not a grudge.</p>
+      <div class="ring" data-cat="misnomer"></div>
+    </div>
+  </section>
+
+  <section class="section" id="renamed" data-nav="Renamings">
+    <div class="wrap">
+      <div class="kicker">Counter-movement</div>
+      <h2>Renamings and reforms</h2>
+      <p class="sub">Wartime renamings run the reflex in reverse; WHO policy tries to stop it at the source.</p>
+      <div class="ring" data-cat="renamed"></div>
+    </div>
+  </section>
+
+  <section class="section" id="catalogue" data-nav="Catalogue">
+    <div class="wrap">
+      <div class="kicker">Everything</div>
+      <h2>Full catalogue</h2>
+      <p class="sub">Search any field — a language, a target, a meaning. Filter by family.</p>
+      <input class="search" id="q" type="search" placeholder="Search: France, cockroach, Polish, condom…" aria-label="Search entries" />
+      <div class="chiprow" id="chips"><button class="chip active" data-filter="all" type="button">All</button></div>
+      <div class="count" id="count"></div>
+      <div id="catTable"></div>
+    </div>
+  </section>
+
+  <section class="section" id="method" data-nav="Method">
+    <div class="wrap">
+      <div class="kicker">Method</div>
+      <h2>What’s in, what’s out</h2>
+      <p style="max-width:78ch">Included: any conventional expression that attributes a disease, pest, habit, object or quality to a people, place or language, whether hostile or merely mistaken. Excluded: plain ethnic slurs for people themselves (the nicknames for Germans, French, Italians and so on), since those name the group rather than assign it a thing, and one-off coinages without established usage.</p>
+      <div class="meta"><span class="tag green">attested</span><span class="tag orange">reported</span></div>
+      <p style="max-width:78ch">Entries tagged <b>reported</b> appear in secondary accounts but have thinner or disputed documentation; treat them as leads rather than settled usage. The catalogue was compiled from existing knowledge rather than a fresh source-by-source check, so anything going into print should be verified against a dictionary or primary source.</p>
+      <div class="warning"><b>The Dutch-auction example doesn’t check out.</b> The Dutch name for a descending-price auction is <i>veilen bij afslag</i> (the Aalsmeer flower auction is the classic case); there is no established Dutch usage of “Chinese auction.” “Chinese auction” is an American term for something different — a raffle-style event where bidders buy tickets for chances at prizes. The English name is a straightforward misnomer-by-origin, which puts it in the innocuous branch, but the return volley from Holland appears to be folklore.</div>
+      <div class="fieldnote"><b>On the syphilis list.</b> The core of the passage is sound. Two refinements: Italian sources mostly said <i>mal francese</i>, with “Spanish disease” the minority usage; and the Japanese name most often cited is <i>tōgasa</i>, “Chinese sore,” with “Portuguese disease” secondary.</div>
+    </div>
+  </section>
+</main>
+
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="wrap">
+    <p>Compiled from general reference knowledge; entries tagged “reported” have thinner documentation. See Method.</p>
+    <p class="verstamp">Blame the Neighbor &mdash; v2.0 &middot; build 2026-09-21T07:43-04:00 &middot; supersedes v1.0 (build 2026-09-21T07:22-04:00). Changes in v2: added “In one breath,” ten cumulative sentences in the style of the syphilis passage.</p>
+    <p style="margin-top:8px">Contact: <a href="mailto:ponelson@gmail.com">ponelson@gmail.com</a> &middot; <a href="https://www.linkedin.com/in/ponelson/">LinkedIn</a> &middot; <a href="https://ponelson.github.io/pon/">GitHub</a></p>
+  </div>
+</footer>
+
+<script>
+const CATS={pox:"The Great Pox",flu:"1918 influenza",disease:"Other diseases",pests:"Vermin",exit:"Leaving without a word",greek:"It’s Greek to me",dutch:"Anglo-Dutch & the bill",vice:"Sex & vice",idioms:"Idioms of blame",outsiders:"Names for outsiders",misnomer:"Innocent misnomers",renamed:"Renamings & reforms"};
+const D=[
+["pox","French disease / French pox","","English","France","Syphilis","From the 1495 outbreak in Charles VIII’s army at Naples; standard English usage for two centuries.","a"],
+["pox","morbus Gallicus","Gallic disease","Latin (medical)","France","Syphilis","Fracastoro’s 1530 poem uses it — the same poem that coined ‘syphilis’.","a"],
+["pox","Franzosenkrankheit / die Franzosen","the French (disease)","German","France","Syphilis","","a"],
+["pox","mal francese","French disease","Italian","France","Syphilis","The dominant Italian term; some sources also report ‘Spanish disease’ in Italy.","a"],
+["pox","mal de Naples","Naples disease","French","Naples","Syphilis","The French blamed the city their army had just occupied.","a"],
+["pox","Spaanse pokken","Spanish pox","Dutch","Spain","Syphilis","Spain was the Low Countries’ ruler and, soon, enemy.","a"],
+["pox","mal castelhano","Castilian disease","Portuguese","Spain","Syphilis","","a"],
+["pox","mal francés / mal de Nápoles","French / Naples disease","Spanish","France; Naples","Syphilis","Spanish physicians also used neutral names (las bubas, morbo serpentino).","r"],
+["pox","польская болезнь","Polish disease","Russian","Poland","Syphilis","","a"],
+["pox","choroba niemiecka","German disease","Polish","Germany","Syphilis","","r"],
+["pox","tōgasa 唐瘡","Tang (Chinese) sore","Japanese","China","Syphilis","Also recorded as the ‘Portuguese disease’, after traders who reached Japan in 1543.","a"],
+["pox","Turkish disease","","Persian","Turkey","Syphilis","","a"],
+["pox","Christian disease","","Ottoman Turkish / Arabic","Christians","Syphilis","","a"],
+["pox","frengi","Frankish (disease)","Turkish","Franks (Western Europeans)","Syphilis","Still the ordinary modern Turkish word for syphilis.","a"],
+["pox","phiranga roga","disease of the Franks","Sanskrit (Ayurvedic)","Franks (Western Europeans)","Syphilis","Described in the 16th-c. Bhāvaprakāśa; arrived with Portuguese sailors.","a"],
+["pox","British disease","","Tahitian","Britain","Venereal disease","British and French sailors each blamed the other’s visits (Wallis 1767, Bougainville 1768).","r"],
+["pox","French crown","","English (Elizabethan)","France","Baldness from syphilis","Shakespeare puns on it in Measure for Measure and A Midsummer Night’s Dream.","a"],
+["pox","Neapolitan bone-ache","","English","Naples","Syphilis","Troilus and Cressida, Act 2.","a"],
+["flu","Spanish flu","","English / international","Spain","1918 influenza","Neutral Spain reported the outbreak openly while combatants censored it; Spain was not the origin.","a"],
+["flu","gripe francesa","French flu","Spanish","France","1918 influenza","","a"],
+["flu","el soldado de Nápoles","the Naples soldier","Spanish (Madrid)","Naples","1918 influenza","After a song from a zarzuela then playing in Madrid: the flu was as catchy as the tune.","a"],
+["flu","Brazilian flu","","Senegal","Brazil","1918 influenza","","r"],
+["flu","German flu","","Brazil","Germany","1918 influenza","","r"],
+["flu","Bolshevik disease","","Polish","Russia","1918 influenza","","r"],
+["flu","Flandern-Fieber","Flanders fever","German (army)","Flanders","1918 influenza","","r"],
+["disease","German measles","","English","Germany","Rubella","Described by German physicians in the 18th c.","a"],
+["disease","morbus anglicus / English disease","","Latin; Dutch ‘Engelse ziekte’; German ‘englische Krankheit’","England","Rickets","Glisson’s 1650 treatise; Dutch and German still use the term.","a"],
+["disease","sudor anglicus / English sweat","","Latin / English","England","Sweating sickness, 1485–1551","Largely confined to England, so description as much as blame.","a"],
+["disease","The English Malady","","English (Cheyne, 1733)","England","Melancholy, ‘nervous’ disorders","Self-applied: blamed on English climate and diet.","a"],
+["disease","plica polonica","Polish plait","Latin (medical)","Poland","Matted hair","Treated as a disease; many Poles avoided cutting it for fear of worse illness.","a"],
+["disease","Asiatic cholera","","English / European","Asia","Cholera","Standard 19th-c. term as pandemics moved west from Bengal.","a"],
+["disease","Egyptian ophthalmia","","European (medical)","Egypt","Trachoma","Brought back by troops from the Napoleonic and British Egyptian campaigns.","a"],
+["disease","Aleppo / Baghdad / Delhi boil; Oriental sore","","European","Middle East; India","Cutaneous leishmaniasis","","a"],
+["disease","Russian flu","","English / European","Russia","1889–90 influenza pandemic","","a"],
+["disease","Asian flu / Hong Kong flu","","English","Asia; Hong Kong","1957 and 1968 pandemics","","a"],
+["disease","Mexican flu","","Various (2009)","Mexico","H1N1 ‘swine flu’","Floated by some governments to avoid ‘swine’; Mexico objected.","a"],
+["disease","Chinese virus / Wuhan virus","","English (2020)","China","COVID-19","Contrary to WHO’s 2015 naming guidance.","a"],
+["disease","Kent / UK / South African / Indian variant","","English and others","Britain; South Africa; India","SARS-CoV-2 variants","Replaced by WHO Greek letters on 31 May 2021.","a"],
+["disease","Hong Kong foot","","British / Asian English","Hong Kong","Athlete’s foot","","a"],
+["disease","Delhi belly; Montezuma’s revenge; Bali belly; Rangoon runs; Tokyo trots; Aztec two-step; gyppy tummy","","English (travelers)","India; Mexico; Indonesia; Burma; Japan; Egypt","Traveler’s diarrhea","A whole genre: the host country is blamed for the visitor’s gut.","a"],
+["disease","Scotch fiddle","","English slang","Scotland","Scabies, ‘the itch’","The scratching mimics fiddling.","a"],
+["disease","Mongolism / Mongolian idiocy","","English (J. L. H. Down, 1866)","Mongolia","Down syndrome","Rooted in Down’s racial theory; WHO dropped it in 1965 after a request from the Mongolian delegation.","a"],
+["disease","Chinese restaurant syndrome","","English (1968)","China","Symptoms blamed on MSG","Controlled studies never supported it; Merriam-Webster revised its entry in 2020.","a"],
+["pests","Schwabe","Swabian","German","Swabia","Cockroach","","a"],
+["pests","прусак","Prussian","Russian","Prussia","Cockroach","","a"],
+["pests","prusak","Prussian","Polish","Prussia","Cockroach","","a"],
+["pests","rus","Russian","Czech","Russia","Cockroach","","a"],
+["pests","Russen","Russians","German dialects","Russia","Cockroach","Swabians blame Russians; Russians blame Prussians.","r"],
+["pests","German cockroach","","English (Linnaean name)","Germany","Blattella germanica","The species likely originated in Southeast Asia.","a"],
+["pests","Hanoverian rat","","English (Jacobite)","Hanover","Brown rat","Said to have arrived with George I in 1714. It didn’t.","a"],
+["pests","Norway rat","","English","Norway","Brown rat","Probably from northern China; Norway had none when it was named.","a"],
+["exit","French leave","","English","France","Leaving without saying goodbye","18th c.; attributed to a French social custom.","a"],
+["exit","Irish goodbye / Irish exit","","American English","Ireland","Same","","a"],
+["exit","Dutch leave","","English (military slang)","Netherlands","Absence without permission","","r"],
+["exit","filer à l’anglaise","to slip off English-style","French","England","Same","The French reply to ‘French leave’.","a"],
+["exit","polnischer Abgang","Polish exit","German / Austrian","Poland","Same","","a"],
+["exit","sich (auf) Französisch verabschieden","to take leave in French","German","France","Same","","a"],
+["exit","despedirse a la francesa","to take leave French-style","Spanish","France","Same","","a"],
+["exit","sair à francesa","to leave French-style","Portuguese","France","Same","","a"],
+["exit","andarsene all’inglese","to leave English-style","Italian","England","Same","","a"],
+["exit","wyjść po angielsku","to leave in English","Polish","England","Same","","a"],
+["exit","уйти по-английски","to leave in English","Russian","England","Same","","a"],
+["exit","odejít po anglicku","to leave in English","Czech","England","Same","","a"],
+["exit","angolosan távozik","to leave English-ly","Hungarian","England","Same","","a"],
+["exit","a pleca englezește","to leave English-ly","Romanian","England","Same","","a"],
+["greek","It’s Greek to me","","English","Greece","Incomprehensible","Shakespeare, Julius Caesar (1599); from medieval scribes’ ‘Graecum est; non legitur’.","a"],
+["greek","Double Dutch","","English","Netherlands","Gibberish","","a"],
+["greek","C’est du chinois / C’est de l’hébreu","It’s Chinese / Hebrew","French","China; Hebrew","Incomprehensible","","a"],
+["greek","Das kommt mir spanisch vor","That seems Spanish to me","German","Spain","Strange, suspicious","Usually dated to the court of the Spanish-raised Charles V.","a"],
+["greek","böhmische Dörfer","Bohemian villages","German","Bohemia","Incomprehensible","Czech place names defeated German speakers.","a"],
+["greek","Fachchinesisch","specialist Chinese","German","China","Jargon","","a"],
+["greek","Dat is Chinees voor mij","That’s Chinese to me","Dutch","China","Incomprehensible","","a"],
+["greek","Me suena a chino","It sounds Chinese to me","Spanish","China","Incomprehensible","","a"],
+["greek","Per me è arabo","It’s Arabic to me","Italian","Arabs","Incomprehensible","","a"],
+["greek","Isso é grego para mim","That’s Greek to me","Portuguese","Greece","Incomprehensible","","a"],
+["greek","Det är rena grekiskan","It’s pure Greek","Swedish","Greece","Incomprehensible","","a"],
+["greek","To dla mnie chińszczyzna","It’s Chinese-ish to me","Polish","China","Incomprehensible","","a"],
+["greek","китайская грамота","Chinese letters","Russian","China","Incomprehensible","","a"],
+["greek","španělská vesnice","Spanish village","Czech","Spain","Incomprehensible","The Czechs pass Germany’s ‘Bohemian villages’ on to Spain.","a"],
+["greek","španielska dedina","Spanish village","Slovak","Spain","Incomprehensible","","a"],
+["greek","Ez nekem kínai","It’s Chinese to me","Hungarian","China","Incomprehensible","","a"],
+["greek","E chineză pentru mine","It’s Chinese to me","Romanian","China","Incomprehensible","","a"],
+["greek","Αυτά είναι κινέζικα","That’s Chinese","Greek","China","Incomprehensible","The Greeks, blamed by English, Portuguese and Swedish, pass it to China.","a"],
+["greek","Fransız kalmak","to remain French","Turkish","France","Not to understand","","a"],
+["greek","Täyttä hepreaa","Pure Hebrew","Finnish","Hebrew","Incomprehensible","","a"],
+["greek","זה סינית בשבילי","It’s Chinese to me","Hebrew","China","Incomprehensible","","a"],
+["greek","See on mulle hiina keel","It’s Chinese to me","Estonian","China","Incomprehensible","","a"],
+["greek","ķīniešu ābece","Chinese alphabet","Latvian","China","Incomprehensible","","a"],
+["greek","天书 / 鬼画符","heavenly script / ghost scribbles","Mandarin","(none)","Incomprehensible","The chain ends: Chinese blames heaven and ghosts, not a neighbor.","a"],
+["dutch","Dutch courage","","English","Netherlands","Drink-induced bravery","The Anglo-Dutch wars (1652–1784) produced most of this cluster.","a"],
+["dutch","Dutch treat / going Dutch","","English","Netherlands","Each pays their own way","","a"],
+["dutch","Dutch uncle","","English","Netherlands","Stern, frank adviser","","a"],
+["dutch","Dutch auction","","English","Netherlands","Descending-price auction","From Dutch flower and fish auctions; the Dutch say ‘veilen bij afslag’. See Method.","a"],
+["dutch","Dutch comfort","","English","Netherlands","‘Could have been worse’","","a"],
+["dutch","Dutch bargain","","English","Netherlands","Deal struck over drink; one-sided deal","","a"],
+["dutch","Dutch concert","","English","Netherlands","Everyone playing a different tune","","a"],
+["dutch","Dutch feast","","English","Netherlands","Host drunk before the guests","","a"],
+["dutch","Dutch reckoning","","English","Netherlands","An unitemized, padded bill","","a"],
+["dutch","Dutch nightingale","","English","Netherlands","A frog","","a"],
+["dutch","Dutch widow","","English (17th c.)","Netherlands","A prostitute","","a"],
+["dutch","Dutch wife / ダッチワイフ","","English; Japanese","Netherlands","Bolster pillow; in Japanese, a sex doll","","a"],
+["dutch","Dutch act","","American slang","Netherlands","Suicide","","a"],
+["dutch","in Dutch","","American slang","Netherlands","In trouble","","a"],
+["dutch","pagare alla romana","to pay Roman-style","Italian","Rome","Split the bill","Italy blames a city rather than a nation.","a"],
+["dutch","pagar a la americana","to pay American-style","Spanish","United States","Split the bill","","a"],
+["dutch","Alman usulü","German method","Turkish","Germany","Split the bill","","a"],
+["dutch","더치페이 / ダッチペイ","Dutch pay","Korean; Japanese","Netherlands","Split the bill","Borrowed from English, so the slight travels with the word.","a"],
+["vice","le vice anglais","the English vice","French","England","Flagellation","Blamed on English public schools.","a"],
+["vice","le vice allemand","the German vice","French (c. 1900–10)","Germany","Homosexuality","Current around the Eulenburg scandal (1907–09).","a"],
+["vice","Italian vice / vice italien","","English; French (16th–17th c.)","Italy","Sodomy","","a"],
+["vice","florenzen / Florenzer","to Florence / a Florentine","German (15th–16th c.)","Florence","Sodomy / a sodomite","","a"],
+["vice","bugger","from Latin Bulgarus","English (via French bougre)","Bulgaria","Sodomite","From the Bogomil heretics of Bulgaria, accused of every vice.","a"],
+["vice","Greek love / ‘Greek’","","English","Greece","Pederasty; anal sex (classified-ad code)","","a"],
+["vice","French kiss / ‘French’","","English (20th c.)","France","Open-mouth kiss; oral sex (classified-ad code)","","a"],
+["vice","French letter","","English","France","Condom","","a"],
+["vice","capote anglaise","English cape","French","England","Condom","","a"],
+["vice","Pariser","Parisian","German","France","Condom","","a"],
+["vice","Les Anglais ont débarqué","The English have landed","French","England","Menstruation","Red coats; the joke has outlived the Napoleonic wars by two centuries.","a"],
+["vice","Der er kommunister i lysthuset","There are communists in the funhouse","Danish","Communists","Menstruation","Political rather than ethnic, but the same move: red, unwelcome, from outside.","a"],
+["idioms","Punic faith (fides Punica)","","Latin","Carthage","Treachery","Roman propaganda about their great enemy.","a"],
+["idioms","Perfidious Albion","","French (popularized 1793)","England","Treacherous Britain","","a"],
+["idioms","Greek calends (ad Kalendas Graecas)","","Latin","Greece","Never","Greeks had no calends; Suetonius attributes the joke to Augustus.","a"],
+["idioms","Beware of Greeks bearing gifts","","Latin (Aeneid)","Greece","Distrust generosity","","a"],
+["idioms","to welsh / welch","","English","Wales","Renege on a debt","","a"],
+["idioms","Welsh rabbit","","English","Wales","Cheese on toast","A joke that the Welsh couldn’t afford real rabbit.","a"],
+["idioms","Irish bull; Irish confetti; Irish twins; paddy wagon","","English","Ireland","Self-contradiction; bricks thrown in a riot; siblings under a year apart; police van","","a"],
+["idioms","gypped","","English","Roma","Cheated","‘Gypsy’ itself encodes the belief that Roma came from Egypt.","a"],
+["idioms","Indian giver","","American English","Native Americans","One who takes back a gift","","a"],
+["idioms","Chinese fire drill; Chinaman’s chance","","American English","China","Chaos; no chance at all","","a"],
+["idioms","Mexican standoff","","American English","Mexico","Deadlock","","a"],
+["idioms","Spanish prisoner; Spanish practices","","English","Spain","An advance-fee con; restrictive work customs","","a"],
+["idioms","Young Turk; to turn Turk","","English","Turkey","Upstart; to renege or apostatize","","a"],
+["idioms","querelle d’Allemand","German quarrel","French","Germany","A quarrel over nothing","","a"],
+["idioms","fort comme un Turc; tête de Turc","strong as a Turk; Turk’s head","French","Turkey","Very strong; whipping boy","A ‘tête de Turc’ was a fairground strength-tester target.","a"],
+["idioms","soûl comme un Polonais","drunk as a Pole","French","Poland","Very drunk","Folk origin credits Napoleon, admiring Polish cavalry.","a"],
+["idioms","parler français comme une vache espagnole","to speak French like a Spanish cow","French","Spain","To speak French badly","Probably a corruption of ‘Basque’ (vasces), not ‘vache’.","a"],
+["idioms","téléphone arabe","Arab telephone","French","Arabs","Gossip chain; the game ‘telephone’","","a"],
+["idioms","Chinese whispers","","British English","China","The game ‘telephone’; garbled rumor","","a"],
+["idioms","polnische Wirtschaft","Polish economy","German","Poland","Disorder, mismanagement","","a"],
+["idioms","getürkt","Turked","German","Turkey","Faked, rigged","From von Kempelen’s fake chess automaton, the Mechanical Turk (1770).","a"],
+["idioms","Engländer / Franzose","Englishman / Frenchman","German","England; France","Adjustable spanner","The tool’s foreign nationality varies by region.","a"],
+["idioms","Spaans benauwd","Spanish-oppressed","Dutch","Spain","Terrified, in a tight spot","A memory of Spanish rule.","a"],
+["idioms","met de Franse slag","with the French stroke","Dutch","France","Sloppily, carelessly","","a"],
+["idioms","fare il portoghese","to act the Portuguese","Italian","Portugal","To freeload, dodge the fare","Folk story: Portuguese in Rome once got free entry to a theater.","a"],
+["idioms","fumare / bestemmiare come un turco","to smoke / swear like a Turk","Italian","Turkey","Heavily","","a"],
+["idioms","hacerse el sueco","to play the Swede","Spanish","Sweden","To play dumb","Possibly from Latin ‘soccus’ (clog), later heard as ‘sueco’.","a"],
+["idioms","engañar como a un chino; cuentos chinos; trabajar como un chino","fool like a Chinese; Chinese tales; work like a Chinese","Spanish","China","Easy mark; tall tales; overwork","","a"],
+["idioms","hay moros en la costa","there are Moors on the coast","Spanish","Moors","Careful, someone’s listening","From centuries of North African coastal raids.","a"],
+["idioms","para inglês ver","for the English to see","Portuguese (Brazil)","England","For show only","From anti-slave-trade laws passed to satisfy Britain and not enforced (1830s).","a"],
+["idioms","negócio da China","a China deal","Portuguese","China","A hugely profitable deal","Admiring rather than hostile.","a"],
+["idioms","trabalhar como um mouro","to work like a Moor","Portuguese","Moors","To toil","","a"],
+["idioms","Незваный гость хуже татарина","an uninvited guest is worse than a Tatar","Russian","Tatars","Unwelcome guest","","a"],
+["idioms","polsk riksdag / polsk rigsdag","Polish parliament","Swedish / Danish","Poland","Chaotic meeting","From the liberum veto that paralyzed the Polish Sejm.","a"],
+["outsiders","barbaros","babbler (‘bar-bar’)","Ancient Greek","All non-Greeks","Foreigner","Source of ‘barbarian’.","a"],
+["outsiders","немцы / Niemcy / Němci","the mutes","Russian / Polish / Czech","Germany","Germans","Slavs named Germans as people who couldn’t speak; Ottoman ‘Nemçe’ (Austria) comes from it.","a"],
+["outsiders","ʿajam","mute, unclear speaker","Arabic","Persians","Non-Arabs, especially Persians","","a"],
+["outsiders","*walhaz → Welsh, Walloon, Vlach, Włochy, Welsch","foreigner","Germanic → many","Celts; Romance speakers","Various peoples","Same root as Poland’s name for Italy (Włochy) and ‘walnut’ (foreign nut).","a"],
+["outsiders","Frank / farangi / farang / firangi","","Arabic, Persian, Hindi, Thai","Franks (Western Europeans)","Any Westerner","From the Crusader-era ‘Franks’.","a"],
+["outsiders","Bohemian","","French (bohémien)","Bohemia","Roma; later, artists","The French thought Roma came from Bohemia.","a"],
+["outsiders","vandalism","","French (Grégoire, 1794)","Vandals","Wanton destruction","","a"],
+["outsiders","胡 hú / 番 fān / 洋 yáng","barbarian / foreign / ocean","Chinese","Central Asians; southern foreigners; Westerners","Imported goods","胡椒 pepper, 胡萝卜 carrot, 番茄 tomato, 洋葱 onion: each prefix dates the import route.","a"],
+["misnomer","turkey","","English","Turkey","The American bird","Confused with guinea fowl imported by ‘Turkey merchants’.","a"],
+["misnomer","dinde (coq d’Inde)","Indian cock","French","India","Turkey (bird)","","a"],
+["misnomer","hindi","Indian","Turkish","India","Turkey (bird)","The country the bird is named for blames India.","a"],
+["misnomer","индейка / indyk","Indian","Russian / Polish","India","Turkey (bird)","","a"],
+["misnomer","tarnegol hodu","Indian rooster","Hebrew","India","Turkey (bird)","","a"],
+["misnomer","kalkoen / kalkun / kalkon","Calicut (bird)","Dutch / Danish / Swedish","India","Turkey (bird)","","a"],
+["misnomer","peru","Peru","Portuguese","Peru","Turkey (bird)","","a"],
+["misnomer","dīk rūmī / dīk ḥabash","Roman rooster / Abyssinian rooster","Arabic (Egypt / Levant)","Byzantium; Ethiopia","Turkey (bird)","","a"],
+["misnomer","γαλοπούλα","French girl","Greek","France","Turkey (bird)","","a"],
+["misnomer","ayam belanda","Dutch chicken","Malay","Netherlands","Turkey (bird)","","a"],
+["misnomer","cearc Fhrangach","French hen","Scottish Gaelic","France","Turkey (bird)","","a"],
+["misnomer","moan barang","French chicken","Khmer","France","Turkey (bird)","","a"],
+["misnomer","granturco","Turkish grain","Italian","Turkey","Maize","German ‘Welschkorn’ (foreign grain) and English ‘Indian corn’ do the same.","a"],
+["misnomer","guinea pig / cochon d’Inde","Guinea pig / pig of India","English / French","Guinea; India","Andean cavy","","a"],
+["misnomer","唐辛子 tōgarashi","Tang (Chinese) mustard","Japanese","China","Chili pepper","An American plant, brought by the Portuguese.","a"],
+["misnomer","南京豆 Nankin-mame","Nanjing bean","Japanese","China","Peanut","Also American in origin.","a"],
+["misnomer","Danish pastry","","English","Denmark","Laminated pastry","Danes call it wienerbrød (Viennese bread); the Viennese call it Kopenhagener.","a"],
+["misnomer","French toast","","English","France","Egg-soaked bread","French: pain perdu. German: Arme Ritter (poor knights).","a"],
+["misnomer","Turkish coffee","","English","Turkey","Boiled unfiltered coffee","Greek coffee in Greece (renamed after 1974); Armenian, Bosnian, Cypriot coffee elsewhere.","a"],
+["misnomer","Russian salad","","Western Europe; Italian ‘insalata russa’","Russia","Potato-mayonnaise salad","Russians call it Olivier, after the chef Lucien Olivier.","a"],
+["misnomer","шведский стол / szwedzki stół / svédasztal","Swedish table","Russian / Polish / Hungarian","Sweden","Buffet","From smörgåsbord.","a"],
+["misnomer","バイキング","Viking","Japanese","Scandinavia","Buffet","Coined by Tokyo’s Imperial Hotel, 1958.","a"],
+["misnomer","Swedish massage","","English","Sweden","Classic massage","Systematized by the Dutch physician Johan Mezger; Swedes say ‘klassisk massage’.","a"],
+["misnomer","India ink / encre de Chine","","American English / French","India; China","Carbon ink","Chinese in origin: the French have it right.","a"],
+["misnomer","Arabic numerals / أرقام هندية","Hindi numerals","English / Arabic","Arabs; India","The digits 0–9","Europe credits the Arabs; the Arabs credit India, correctly.","a"],
+["misnomer","Chinese checkers","","English","China","Star halma","German game (Stern-Halma, 1892), renamed for American marketing.","a"],
+["misnomer","Panama hat","","English","Panama","Toquilla straw hat","Made in Ecuador, shipped via Panama.","a"],
+["misnomer","Hawaiian pizza; Mongolian barbecue","","English","Hawaii; Mongolia","Ham-pineapple pizza; stir-fry buffet","Invented in Ontario (1962) and Taiwan respectively.","a"],
+["misnomer","English horn / cor anglais","","English / French","England","Tenor oboe","Neither English nor a horn; possibly from ‘angled horn’.","a"],
+["misnomer","Canadian bacon","","American English","Canada","Back bacon","","a"],
+["misnomer","Jerusalem artichoke","","English","Jerusalem","Sunchoke (N. American)","Probably from Italian ‘girasole’ (sunflower).","a"],
+["renamed","liberty cabbage; liberty sausage; liberty measles","","American English (1917–18)","Germany","Sauerkraut; frankfurters; German measles","Anti-German renaming in WWI.","a"],
+["renamed","freedom fries","","American English (2003)","France","French fries","House cafeterias, after France opposed the Iraq war.","a"],
+["renamed","Zigeunerschnitzel → Paprikaschnitzel","","German (2013 on)","Roma","Paprika-sauce schnitzel","Several manufacturers renamed after complaints.","a"],
+["renamed","WHO naming best practices","","WHO (2015)","—","New human diseases","Bars place names, people’s names, animal and occupation names in new disease names.","a"],
+["renamed","Greek-letter variants","","WHO (31 May 2021)","—","SARS-CoV-2 variants","Alpha, Beta, Gamma, Delta replaced country labels.","a"],
+["renamed","monkeypox → mpox; clades I / II","","WHO (2022)","Congo Basin; West Africa","Mpox","Clades had been named ‘Congo Basin’ and ‘West African’.","a"],
+["renamed","Ebola","","Researchers (1976)","—","Ebola virus disease","Named for a river rather than the village of Yambuku, to spare the village.","a"]
+];
+
+(function(){
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function rows(list,showCat){
+    var h='<div class="tablewrap"><div class="table-scroll"><table><thead><tr><th>Term</th><th>Used by</th><th>Blames</th><th>Means</th><th>Note</th>'+(showCat?'<th>Family</th>':'')+'</tr></thead><tbody>';
+    list.forEach(function(r){
+      h+='<tr><td>'+esc(r[1])+(r[7]==='r'?'<span class="tag orange">reported</span>':'')+(r[2]?'<span class="gloss">'+esc(r[2])+'</span>':'')+'</td><td>'+esc(r[3])+'</td><td>'+esc(r[4])+'</td><td>'+esc(r[5])+'</td><td>'+esc(r[6])+'</td>'+(showCat?'<td class="catcell">'+esc(CATS[r[0]])+'</td>':'')+'</tr>';
+    });
+    return h+'</tbody></table></div></div>';
+  }
+  [].forEach.call(document.querySelectorAll('.ring[data-cat]'),function(el){
+    el.innerHTML=rows(D.filter(function(r){return r[0]===el.dataset.cat;}),false);
+  });
+  /* stats */
+  var langs={},tally={};
+  D.forEach(function(r){
+    r[3].split(/[;\/]|,/).forEach(function(l){l=l.replace(/\(.*?\)/g,'').replace(/[‘’'].*$/,'').trim();if(l)langs[l]=1;});
+    if(r[0]==='renamed')return;
+    r[4].split(';').forEach(function(t){t=t.replace(/\(.*?\)/g,'').trim();if(t&&t!=='—'&&t!=='(none)')tally[t]=(tally[t]||0)+1;});
+  });
+  var top=Object.keys(tally).sort(function(a,b){return tally[b]-tally[a];});
+  var st=document.getElementById('stats');
+  if(st){
+    var cells=[[D.length,'Entries in the catalogue, across '+Object.keys(CATS).length+' families'],[Object.keys(langs).length,'Distinct naming sources (languages, dialects and period registers)'],[top.length,'Distinct peoples, places or groups blamed'],[top[0]+' '+tally[top[0]],'Most-blamed target (excluding the renamings section)']];
+    st.innerHTML=cells.map(function(c){return '<div class="stat"><div class="n">'+esc(c[0])+'</div><div class="t">'+esc(c[1])+'</div></div>';}).join('');
+  }
+  var bars=document.getElementById('bars');
+  if(bars){
+    var max=tally[top[0]]||1;
+    bars.innerHTML=top.slice(0,10).map(function(t){return '<div class="bar"><span>'+esc(t)+'</span><div class="track"><div class="fill" style="width:'+(tally[t]/max*100).toFixed(1)+'%"></div></div><span class="num">'+tally[t]+'</span></div>';}).join('');
+  }
+  /* catalogue */
+  var chips=document.getElementById('chips'),q=document.getElementById('q'),out=document.getElementById('catTable'),cnt=document.getElementById('count'),cur='all';
+  if(chips) Object.keys(CATS).forEach(function(k){var b=document.createElement('button');b.className='chip';b.type='button';b.dataset.filter=k;b.textContent=CATS[k];chips.appendChild(b);});
+  function render(){
+    var s=(q&&q.value||'').toLowerCase().trim();
+    var list=D.filter(function(r){return (cur==='all'||r[0]===cur)&&(!s||r.join(' ').toLowerCase().indexOf(s)>-1);});
+    if(out) out.innerHTML=rows(list,true);
+    if(cnt) cnt.textContent=list.length+' of '+D.length+' entries';
+  }
+  if(chips) chips.addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;cur=b.dataset.filter;[].forEach.call(chips.querySelectorAll('.chip'),function(c){c.classList.toggle('active',c===b);});render();});
+  if(q) q.addEventListener('input',render);
+  render();
+})();
+
+/* ---------------- theme ---------------- */
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeToggle'),
+      lbl=document.getElementById('themeLabel'), meta=document.getElementById('themeColorMeta');
+  function read(){ try{return localStorage.getItem('theme');}catch(e){return null;} }
+  function write(v){ try{localStorage.setItem('theme',v);}catch(e){} }
+  function apply(t){
+    root.setAttribute('data-theme',t);
+    if(lbl) lbl.textContent = (t==='dark'?'Light':'Dark');
+    if(btn) btn.setAttribute('aria-pressed', t==='dark' ? 'true':'false');
+    if(meta) meta.setAttribute('content', t==='dark' ? '#0d0d10' : '#f5f5f7');
+  }
+  var saved=read();
+  var initial = saved || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light');
+  apply(initial);
+  if(btn) btn.addEventListener('click',function(){
+    var next = root.getAttribute('data-theme')==='dark' ? 'light':'dark';
+    apply(next); write(next);
+  });
+  if(window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){
+    if(!read()) apply(e.matches?'dark':'light');
+  });
+})();
+
+/* ---------------- nav from sections ---------------- */
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('section.section[data-nav]'));
+  var nl=document.getElementById('navlinks'), dr=document.getElementById('drawer'), mb=document.getElementById('menubtn');
+  secs.forEach(function(s){
+    [[nl],[dr]].forEach(function(h){
+      if(!h[0])return;
+      var a=document.createElement('a');
+      a.href='#'+s.id; a.textContent=s.dataset.nav;
+      h[0].appendChild(a);
+    });
+  });
+  if(mb&&dr) mb.addEventListener('click',function(){dr.classList.toggle('open');});
+  if(dr) dr.addEventListener('click',function(e){if(e.target.tagName==='A')dr.classList.remove('open');});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting)return;
+      [].forEach.call(document.querySelectorAll('#navlinks a'),function(a){
+        a.classList.toggle('active', a.getAttribute('href')==='#'+e.target.id);
+      });
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  secs.forEach(function(s){io.observe(s);});
+})();
+
+/* ---------------- accordions ---------------- */
+[].forEach.call(document.querySelectorAll('.fam-head'),function(h){
+  h.addEventListener('click',function(){h.closest('.fam').classList.toggle('open');});
+});
+</script>
+</body>
+</html>
